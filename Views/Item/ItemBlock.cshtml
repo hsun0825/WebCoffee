@@ -1,0 +1,80 @@
+﻿@model WebCoffee.Models.ItemDetail
+
+
+<table>
+    <tr>
+        @*顯示商品圖片*@
+        <td>
+            <img width="280"
+                 src="@Html.Encode(Url.Content("~/Upload/" + Model.Data.Image))" />
+
+        </td>
+
+    </tr>
+    <tr>
+        <td>
+            <span style="font-size:20px;">
+                商品:
+                @*@Html.DisplayNameFor(Model => Model.Data.Name):*@
+            </span>
+            <span style="font-size:20px;">
+                @Html.ActionLink(Model.Data.Name, "Item", new { Id = Model.Data.Id })
+            </span>
+            <span style="font-size:20px;">
+                $:
+            </span>
+            <span style="font-size:20px;">
+                @Html.Name(Model.Data.Price.ToString())
+            </span>
+
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @*判斷是否有登入，因購物車功能須使用者登入*@
+            @*若無登入，則無法使用此功能*@
+            @if (User.Identity.IsAuthenticated)
+            {
+                @*判斷商品是否於購物車中*@
+                if (Model.InCart)
+                {
+                    <text>已經於購物車中了，從購物車中</text>
+                    @*使用AJAX Helper輔助方法呼叫CartController中的Pop Action*@
+                    @Ajax.ActionLink("取出", "Pop", "Cart"
+    @*指定攜帶參數值*@
+, new { Id = Model.Data.Id, toPage = "ItemBlack" }
+    @*設定取代原本區塊*@
+, new AjaxOptions
+{
+InsertionMode = InsertionMode.Replace
+    @*設定取代區塊位置*@
+,
+UpdateTargetId = "ItemBlock-" + Model.Data.Id
+}, new { @class = "btn btn-warning" })
+                }
+                else
+                {
+                    @*使用AJAX Helper輔助方法呼叫CartController中的Put Action*@
+                    <a href="@Url.Action("AddInCart","ShoppingCart",new { Item_id = Model.Data.Id })">放入購物車中</a>
+
+                    @Ajax.ActionLink("放入購物車中", "put", "Cart"
+    @*指定攜帶參數值*@
+, new { Id = Model.Data.Id, toPage = "ItemBlack" }
+    @*設定取代原本區塊*@
+, new AjaxOptions
+{
+InsertionMode = InsertionMode.Replace
+    @*設定取代區塊位置*@
+,
+UpdateTargetId = "ItemBlock-" + Model.Data.Id
+}, new { @class = "btn btn-primary" })
+                }
+                if (User.IsInRole("Admin"))
+                {
+                    @Html.ActionLink("刪除商品", "Delete"
+                        , new { Id = Model.Data.Id }, new { @class = "btn btn-danger" })
+                }
+            }
+        </td>
+    </tr>
+</table>

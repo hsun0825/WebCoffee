@@ -1,0 +1,78 @@
+﻿@model List<WebCoffee.Models.Order>
+@{
+    ViewBag.Title = "OrderList";
+    Layout = "~/Views/Shared/test.cshtml";
+}
+<!-- breadcrumb-area start -->
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="row breadcrumb_box  align-items-center">
+                    <div class="col-lg-6 col-md-6 col-sm-12 text-center text-md-left">
+                        <h2 class="breadcrumb-title">Shop</h2>
+                    </div>
+                    <div class="col-lg-6  col-md-6 col-sm-12">
+                        <!-- breadcrumb-list start -->
+                        <ul class="breadcrumb-list text-center text-md-right">
+                            <li class="breadcrumb-item"><a href="~/Home/Index">Home</a></li>
+                            <li class="breadcrumb-item active">OrderList</li>
+                        </ul>
+                        <!-- breadcrumb-list end -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="cart-main-area pt-100px pb-100px">
+    <div class="container">
+        <h3 class="cart-page-title">訂單編號</h3>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                <form action="#">
+
+
+                    <table class="container">
+
+
+                        <thead>
+                            <tr>
+                                <th>訂單編號</th>
+
+                                <th>會員</th>
+                            </tr>
+                        </thead>
+
+
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                for (var i = 0; i < Model.Count; i++)
+                                {
+                                    <tr>
+                                        <td>
+                                            <a href="~/ShoppingCart/OrderListDetial?Orderid=@Model[i].OrderId">
+                                                @Model[i].OrderId
+                                                </a>
+                                        </td>
+
+                                        <td>
+                                            @Model[i].Account
+                                        </td>
+
+                                    </tr>
+                                }
+
+                            }
+                        </tbody>
+
+                    </table>
+           
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+</div>

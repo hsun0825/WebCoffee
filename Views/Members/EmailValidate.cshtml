@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "Email驗證";
+}
+@*標題*@
+<div class="login-register-area pt-100px pb-100px">
+    <div class="container">
+        <div class="row">
+
+
+            <a class="active" data-bs-toggle="tab" href="#lg1">
+                <h4>Email驗證</h4>
+            </a>
+            @*顯示Email驗證結果訊息*@
+            <div class="alert alert-info">
+                @ViewData["EmailValidate"]
+            </div>
+
+        </div>
+        @*顯示登入與註冊連結*@
+        @Html.ActionLink("去登入", "Login") |
+        @Html.ActionLink("再註冊", "Register")
+    </div>
+</div>

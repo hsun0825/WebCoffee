@@ -1,0 +1,97 @@
+﻿@model List<WebCoffee.Models.Cart>
+
+@{
+    ViewBag.Title = "OrderListDetial";
+    Layout = "~/Views/Shared/test.cshtml";
+}
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="row breadcrumb_box  align-items-center">
+                    <div class="col-lg-6 col-md-6 col-sm-12 text-center text-md-left">
+                        <h2 class="breadcrumb-title">Shop</h2>
+                    </div>
+                    <div class="col-lg-6  col-md-6 col-sm-12">
+                        <!-- breadcrumb-list start -->
+                        <ul class="breadcrumb-list text-center text-md-right">
+                            <li class="breadcrumb-item"><a href="~/Home/Index">Home</a></li>
+                            <li class="breadcrumb-item active">OrderDetialList</li>
+                        </ul>
+                        <!-- breadcrumb-list end -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="cart-main-area pt-100px pb-100px">
+    <div class="container">
+        <h3 class="cart-page-title">商品項目</h3>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                <form action="#">
+
+
+                    <table class="container">
+
+
+                        <thead>
+                            <tr>
+                                <th>商品</th>
+
+                                <th>數量</th>
+
+                                <th>價格</th>
+                            </tr>
+                        </thead>
+
+
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                for (var i = 0; i < Model.Count; i++)
+                                {
+                                    <tr>
+                                        <td>
+
+                                            @Model[i].Name
+
+                                        </td>
+
+                                        <td>
+                                            @Model[i].Count
+                                        </td>
+
+                                        <td class="Price">
+                                            @*$@(Model[i].Count*Model[i].Price)*@
+                                            $@String.Format("{0:n0}", Model[i].Count*Model[i].Price)
+                                        </td>
+                                    </tr>
+                                }
+
+                            }
+                        </tbody>
+
+                    </table>
+
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section scripts{
+    <script>       
+    </script>
+
+
+    @*function Price(num) {
+    var parts = num.toString().split('.');
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    return parts.join('.');
+    }
+    console.log(Price(1000));*@
+}

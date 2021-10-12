@@ -1,0 +1,41 @@
+﻿@model WebCoffee.Models.ItemDetail
+
+@{ ViewBag.Title = "商品" + Model.Data.Name;}
+
+@*標題*@
+
+<div class="page-header">
+    <h1>@Model.Data.Name</h1>
+</div>
+@*顯示價格欄位名稱及資料*@
+@Html.DisplayNameFor(model => model.Data.Price)：
+@Html.DisplayTextFor(model => model.Data.Price)
+<br />
+<img src="@Html.Encode(Url.Content("~/Upload/" + Model.Data.Image))" />
+<br />
+@*限制須使用者登入才顯示購物車功能*@
+@if (User.Identity.IsAuthenticated)
+{
+    if (Model.InCart)
+    {
+        <text>已經於購物車中了，從購物車中</text>
+        @Html.ActionLink("取出", "Pop", "Cart"
+            , new { Id = Model.Data.Id, toPage = "Item" }, new { @class = "btn btn-warning" })
+    }
+    else
+    {
+        @Html.ActionLink("放入購物車中", "Put", "Cart"
+            , new { Id = Model.Data.Id, toPage = "Item" }, new { @class = "btn btn-primary" })
+    }
+    if (User.IsInRole("Admin"))
+    {
+        @Html.ActionLink("刪除商品", "Delete"
+            , new { Id = Model.Data.Id }, new { @class = "btn btn-danger" })
+    }
+}
+@*若無登入狀態，無法使用此功能*@
+else
+{
+    <text>要使用購物車請先</text>
+    @Html.ActionLink("登入", "Login", "Members")
+}

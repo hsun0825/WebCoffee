@@ -1,0 +1,198 @@
+﻿@model WebCoffee.Models.ItemView
+
+@{
+    ViewBag.Title = "商品首頁";
+}
+@*標頭*@
+
+<!-- breadcrumb-area start -->
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="row breadcrumb_box  align-items-center">
+                    <div class="col-lg-6 col-md-6 col-sm-12 text-center text-md-left">
+                        <h2 class="breadcrumb-title">Shop</h2>
+                    </div>
+                    <div class="col-lg-6  col-md-6 col-sm-12">
+                        <!-- breadcrumb-list start -->
+                        <ul class="breadcrumb-list text-center text-md-right">
+                            <li class="breadcrumb-item"><a href="/Home/index">Home</a></li>
+                            <li class="breadcrumb-item active">Shop</li>
+                        </ul>
+                        <!-- breadcrumb-list end -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Shop Category pages -->
+<div class="shop-category-area pb-100px pt-70px">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 order-lg-last col-md-12 order-md-first">
+                <!-- Shop Top Area Start -->
+                <div class="shop-top-bar d-flex">
+
+                    <!-- Right Side Start -->
+                    <div class="select-shoing-wrap d-flex align-items-center">
+                        <nav class="navbar navbar-expand-md navbar-light ">
+                            <span class="h3 mx-1">Menu</span>
+                        </nav>
+
+                    </div>
+                    <!-- Right Side End -->
+                </div>
+                <!-- Shop Top Area End -->
+                <!-- Shop Bottom Area Start -->
+
+                <div class="shop-bottom-area">
+
+                    <div class="row">
+
+                        @if (!Model.IdList.Count.Equals(0))
+                        {
+                            //int row = Convert.ToInt32(Math.Ceiling(
+                            //Convert.ToDouble(Model.IdList.Count) / 5));
+                            //for (int r = 0; r < row; r++)
+                            //{
+
+                            for (int i = 0;  i< Model.ItemBlock.Count && Model.ItemBlock[i]!= null ; i++)
+                            {
+                                    <div class="col-lg-4  col-md-6 col-sm-6 col-xs-6">
+                                        <div class="col-lg-4  col-md-6 col-sm-6 col-xs-6">
+
+                                            <div class="col-sm-6 col-md-4">
+
+                                                <h1> @Html.Partial("ItemBlock", Model.ItemBlock[i])</h1>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                            }
+
+                        }
+
+                        <div>
+                            @*若無登入狀態，無法使用此功能*@
+                            @if (!User.Identity.IsAuthenticated)
+                            {
+                                <text> 要使用購物車請先 </text>
+                                @Html.ActionLink("登入", "Login", "Members")
+                            }
+                            @*當使用者為管理者，產生新增商品的超連結*@
+                            @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                            {
+                                <a href="@Url.Action("AddInCart","ShoppingCart")">
+                                    <input class="btn btn-primary" type="button" value="新增商品" />
+                                </a>
+                            }
+
+                        </div>
+
+                    </div>
+                    <div class="pro-pagination-style text-center mb-md-30px mb-lm-30px mt-6" data-aos="fade-up">
+
+                        <ul class="pagination">
+                            @*顯示上一頁與最前頁按鈕*@
+                            <li class="first @((Model.Paging.NowPage > 1) ? "" : " disabled")">
+                                @Ajax.ActionLink("<<", "Index", new { Page = 1 },
+                                    new AjaxOptions
+                                         {
+                                             UpdateTargetId = "ItemList"
+                                    ,
+                                             InsertionMode = InsertionMode.Replace
+                                         })
+                            </li>
+                            <li class="pervious @((Model.Paging.NowPage > 1) ? "" : " disabled")">
+                                @Ajax.ActionLink("<", "Index", new { Page = Model.Paging.NowPage - 1 },
+                                    new AjaxOptions
+                                         {
+                                             UpdateTargetId = "ItemList"
+                                    ,
+                                             InsertionMode = InsertionMode.Replace
+                                         })
+                            </li>
+                            @*顯示各個頁次按鈕*@
+                            @for (var page = (Model.Paging.NowPage - 6);
+                                            page < (Model.Paging.NowPage + 6); page++)
+                            {
+                                if ((page > 0) && (page <= Model.Paging.MaxPage))
+                                {
+                                    if (page == Model.Paging.NowPage)
+                                    {
+                                        <li class="active">
+                                            <a href="#">@page</a>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li>
+                                            @Ajax.ActionLink(page.ToString(), "Index", new { Page = page },
+                                                new AjaxOptions
+                                                     {
+                                                         UpdateTargetId = "ItemList"
+                                                ,
+                                                         InsertionMode = InsertionMode.Replace
+                                                     })
+                                        </li>
+                                    }
+                                }
+                            }
+                            @*顯示下一頁與最後一頁的按鈕*@
+                            <li class="next @(((Model.Paging.NowPage < Model.Paging.MaxPage)
+        ? "" : " disabled"))">
+                                @Ajax.ActionLink(">", "Index", new { Page = Model.Paging.NowPage + 1 },
+                                    new AjaxOptions
+                                         {
+                                             UpdateTargetId = "ItemList"
+                                    ,
+                                             InsertionMode = InsertionMode.Replace
+                                         })
+                            </li>
+                            <li class="last @(((Model.Paging.NowPage < Model.Paging.MaxPage)
+        ? "" : " disabled"))">
+                                @Ajax.ActionLink(">>", "Index", new { Page = Model.Paging.MaxPage },
+                                    new AjaxOptions
+                                         {
+                                             UpdateTargetId = "ItemList"
+                                    ,
+                                             InsertionMode = InsertionMode.Replace
+                                         })
+                            </li>
+                        </ul>
+
+
+                    </div>
+
+                </div>
+                <!-- Shop Bottom Area End -->
+            </div>
+            <!-- Sidebar Area Start -->
+            <div class="col-lg-3 order-lg-first col-md-12 order-md-last mb-md-60px mb-lm-60px">
+                <div class="shop-sidebar-wrap">
+                    <!-- Sidebar single item -->
+                    <div class="sidebar-widget">
+                        <div class="main-heading">
+                            <h3 class="sidebar-title">Category</h3>
+                        </div>
+                        <div class="sidebar-widget-category">
+                            <ul>
+                                <li><a href="#" class="selected">All <span></span> </a></li>
+                                <li><a href="#" class="">單品 <span></span> </a></li>
+                                <li><a href="#" class="">綜和豆 <span></span> </a></li>
+                                <li><a href="#" class="">掛耳包 <span></span> </a></li>
+                               
+
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BabkaCoffee</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <link href="~/css/style.css" rel="stylesheet" />
+</head>
+
+<body>
+  
+
+
+    <div class="navbar navbar-default navbar-fixed-top" style="background-color: #ffffff;">
+
+            <div class="container">
+                <div class=" logo">
+                    <a href="Home/index"><img src="~/img/LOGO.png" alt=""></a>
+
+                </div>
+
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    <!--<div class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+
+                @Html.ActionLink("Babka", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li>@(User.Identity.Name)</li>
+
+                        <li>@Html.ActionLink("購物車", "Index", "Cart")</li>
+                        <li>@Html.ActionLink("變更密碼", "ChangePassword", "Members")</li>
+                        <li>@Html.ActionLink("登出", "Logout", "Members")</li>
+
+                    }-->
+    @*若無使用者登入，則列出兩個連結*@
+    <!--else
+                    {
+                        <li>@Html.ActionLink("註冊", "Register", "Members")</li>
+                        <li>@Html.ActionLink("登入", "Login", "Members")</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>-->
+        <div class="container body-content">
+
+
+
+            @RenderBody()
+            <hr />
+            <footer>
+                @**@<p>&copy; @DateTime.Now.Year - 我的 ASP.NET 應用程式</p>
+            </footer>
+        </div>
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+</body>
+</html>

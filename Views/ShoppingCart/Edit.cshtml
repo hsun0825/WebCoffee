@@ -1,0 +1,172 @@
+﻿@model List<WebCoffee.Models.Cart>
+
+<!-- breadcrumb-area start -->
+<div class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="row breadcrumb_box  align-items-center">
+                    <div class="col-lg-6 col-md-6 col-sm-12 text-center text-md-left">
+                        <h2 class="breadcrumb-title">Shop</h2>
+                    </div>
+                    <div class="col-lg-6  col-md-6 col-sm-12">
+                        <!-- breadcrumb-list start -->
+                        <ul class="breadcrumb-list text-center text-md-right">
+                            <li class="breadcrumb-item"><a href="~/Home/Index">Home</a></li>
+                            <li class="breadcrumb-item active">Cart</li>
+                        </ul>
+                        <!-- breadcrumb-list end -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="cart-main-area pt-100px pb-100px">
+    <div class="container">
+        <h3 class="cart-page-title">Your cart items</h3>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                <form action="#">
+
+                    <div>
+                        <a href="~/ShoppingView/Index">返回商品頁</a>
+                    </div>
+                    <table class="table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    @Html.DisplayNameFor(model => model.FirstOrDefault().Account)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.FirstOrDefault().Id)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.FirstOrDefault().Count)
+                                </th>
+                                <th class="invisible">
+                                    @Html.DisplayNameFor(model => model.FirstOrDefault().Price)
+                                </th>
+
+                                <th>圖片</th>
+
+                                <th>價錢</th>
+
+
+
+
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @if (Model != null)
+                            {
+                                for (var i = 0; i < Model.Count; i++)
+                                {
+                            <tr>
+                                <td class="Account">
+                                    @Model[i].Account
+                                </td>
+                                <td class="Name">
+
+                                    @Model[i].Name
+                                </td>
+                                <td class="product-quantity">
+
+                                    <input id="number" data-Id="@Model[i].Id" class="update-count" type="number" value="@Model[i].Count" min="0" width="20">
+
+
+                                </td>
+
+
+
+                                <td class="UnitPrice invisible">
+                                    @Model[i].Price
+                                </td>
+                                <td class="Image">
+                                    <img src="@Html.Encode(Url.Content("~/Upload/" + Model[i].Item.Image))" style="max-width:100px; max-height:100px" />
+                                </td>
+                                <td class="TotalPrice">
+                                    $@String.Format("{0:n0}", Model[i].Count * Model[i].Price)
+                                </td>
+
+
+
+                            </tr>
+
+                                }
+                            }
+
+                        </tbody>
+                    </table>
+
+
+                    <div style="text-align:right">
+                        @if (Model != null && Model.Any())
+
+                        {
+                            <a href="@Url.Action("Index")">結帳</a>
+                        }
+
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('.update-count').change(function () {
+                var id = $(this).data("id");
+                var count = $(this).val();
+
+                //確認tr祖父輩
+                if (count == 0)
+                    $(this).closest("tr").remove();
+
+                $.ajax({
+                    url: '@Url.Action("UpdateProductCount")',
+                    data: {id,count},
+                    type: 'POST',
+                })
+
+                    //確認ajax執行成功
+                    .done(function (data) {
+                        console.log(data);
+                        console.log(data.Status);
+                        console.log(data.Message);
+                    });
+            });
+        });
+
+
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('.update-count').change(function () {
+                var id = $(this).data("id");
+                var count = Number($(this).val());
+                var unitPrice = Number($(this).closest("tr").find(".UnitPrice")[0].innerHTML);
+                var priceDom = $(this).closest("tr").find(".TotalPrice")[0];
+                priceDom.innerText ="$" + unitPrice * count;
+                //$(cPrice).text(total);
+                //$(cPrice).text((parseInt($(cPrice)) * parseInt($(count))));
+                //$(cPrice).text((parseInt($(cPrice).text().trim()) ));
+
+            });
+        });
+    </script>
+
+
+
+}
+
+
+

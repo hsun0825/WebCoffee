@@ -1,0 +1,64 @@
+﻿@model WebCoffee.Models.CartBuyView
+
+@{
+    ViewBag.Title = User.Identity.Name + "的購物車";
+}
+
+@*標題*@
+<div class="page-header">
+    <h1>購物車內容</h1>
+</div>
+<div class="table-responsive">
+    <table class="table table-hover">
+        @*判斷是否有資料傳入*@
+        @if (!Model.DataList.Count.Equals(0))
+        {
+            <thead>
+                <tr>
+                    @*顯示商品資料欄位名稱*@
+                    <th class="text-center">
+                        @Html.DisplayNameFor(p => p.DataList[0].Item.Name)
+                    </th>
+                    <th class="text-center">
+                        @Html.DisplayNameFor(p => p.DataList[0].Item.Price)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            @*將購物車清單資料列出*@
+            foreach (var item in Model.DataList)
+            {
+                <tr>
+                    <td class="text-center">
+                        @Html.ActionLink(item.Item.Name, "Item", "Item", new { Id = item.Item.Id }, null)
+                    </td>
+                    <td class="text-center">
+                        @item.Item.Price
+                    </td>
+                    <td class="text-center">
+                        @Html.ActionLink("從購物車中取出", "Pop", new { Id = item.Item.Id, toPage = "Cart" }, new { @class = "btn btn-primary" })
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td>
+                    購物車內無商品
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+@*購物車是否保存*@
+@if (Model.isCartsave)
+{
+    <text>購物車已經保存，請按此</text>
+    @Html.ActionLink("取消", "CartSaveRemove", null, new { @class = "btn btn-danger" })
+}
+else
+{
+    <text>購物車尚未保存，請按此</text>
+    @Html.ActionLink("保存", "CartSave", null, new { @class = "btn btn-primary" })
+}
