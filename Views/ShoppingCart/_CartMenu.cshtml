@@ -1,0 +1,42 @@
+﻿@model List<WebCoffee.Models.Cart>
+
+<tbody>
+    @if (Model != null)
+    {
+        for (var i = 0; i < Model.Count; i++)
+        {
+            <tr>
+                <td class="Account">
+                    @Model[i].Account
+                </td>
+                <td class="Name">
+
+                    @Model[i].Name
+                </td>
+                <td class="product-quantity">
+
+                    <input id="number" data-Id="@Model[i].Id" class="update-count" type="number" value="@Model[i].Count" min="0" width="20">
+
+
+                </td>
+
+
+
+                <td class="UnitPrice invisible">
+                    @Model[i].Price
+                </td>
+                <td class="Image">
+                    <img src="@Html.Encode(Url.Content("~/Upload/" + Model[i].Item.Image))" style="max-width:100px; max-height:100px" />
+                </td>
+                <td class="TotalPrice">
+                    $@String.Format("{0:n0}", Model[i].Count * Model[i].Price)
+                </td>
+
+
+
+            </tr>
+
+        }
+    }
+
+</tbody>

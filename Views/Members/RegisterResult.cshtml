@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "註冊";
+}
+
+
+
+<div class="login-register-area pt-100px pb-100px">
+    <div class="container">
+        <div class="row">
+
+
+            <a class="active" data-bs-toggle="tab" href="#lg1">
+                <h4>註冊</h4>
+            </a>
+                @*顯示註冊結果訊息*@
+
+                <div class="alert alert-success">
+                    @TempData["RegisterState"]
+                </div>
+        </div>
+
+    </div>
+</div>

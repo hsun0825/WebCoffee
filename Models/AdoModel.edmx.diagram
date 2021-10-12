@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b18f2bd736084ed5b66a815dfaf05f40" Name="Diagram1">
+        <EntityTypeShape EntityType="BabakWebModel.CartBuy" Width="1.5" PointX="5" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BabakWebModel.CartSave" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BabakWebModel.Item" Width="1.5" PointX="2.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BabakWebModel.Members" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="BabakWebModel.FK__CartBuy__Item_Id__0EA330E9" ManuallyRouted="false" />
+        <AssociationConnector Association="BabakWebModel.FK__CartSave__Cart_I__09DE7BCC" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="BabakWebModel.Genre" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="BabakWebModel.Cart" Width="1.5" PointX="9.75" PointY="2.5" />
+        <EntityTypeShape EntityType="BabakWebModel.Order" Width="1.5" PointX="8" PointY="1.75" />
+        <EntityTypeShape EntityType="BabakWebModel.OrderDetail" Width="1.5" PointX="7.375" PointY="5" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

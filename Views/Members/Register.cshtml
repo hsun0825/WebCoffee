@@ -1,0 +1,80 @@
+﻿@model WebCoffee.Models.MemberRegisterView
+@{
+    ViewBag.Title = "Register";
+}
+<head>
+    <meta charset="UTF-8">
+    <title>BabkaCoffee</title>
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Babka Cofee</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+
+
+
+    <!-- Open Graph (OG) meta tags are snippets of code that control how URLs are displayed when shared on social media  -->
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Furns - Responsive eCommerce HTML Template" />
+    <meta property="og:url" content="PAGE_URL" />
+    <meta property="og:site_name" content="Furns - Responsive eCommerce HTML Template" />
+    <!-- For the og:image content, replace the # with a link of an image -->
+    <meta property="og:image" content="#" />
+    <meta property="og:description" content="Furns - Responsive eCommerce HTML Template" />
+    <meta name="robots" content="noindex, follow" />
+    <!-- Add site Favicon -->
+    <link rel="icon" href="~/HTML/assets/images/favicon/favicon.png" sizes="32x32" />
+    <link rel="icon" href="~/HTML/assets/images/favicon/favicon.png" sizes="192x192" />
+    <link rel="apple-touch-icon" href="~/HTML/assets/images/favicon/favicon.png" />
+    <meta name="msapplication-TileImage" content="~/HTML/assets/images/favicon/favicon.png" />
+    <!-- Structured Data  -->
+    @*<script type="application/ld+json">
+            {
+                "name": "Replace_with_your_site_title",
+                "url": "Replace_with_your_site_URL"
+            }
+        </script>*@
+    <link rel="stylesheet" href="~/HTML/assets/css/vendor/vendor.min.css" />
+    <link rel="stylesheet" href="~/HTML/assets/css/plugins/plugins.min.css" />
+    <link rel="stylesheet" href="~/HTML/assets/css/style.min.css">
+
+</head>
+<div class="login-register-area pt-100px pb-100px">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7 col-md-12 ml-auto mr-auto">
+                <div class="login-register-wrapper">
+                    <div class="login-register-tab-list nav">
+                        <a class="active" data-bs-toggle="tab" href="#lg1">
+                            <h4>register</h4>
+                        </a>
+                       
+                    </div>
+                    <div class="tab-content">
+                        <div id="lg1" class="tab-pane active">
+                            <div class="login-form-container">
+                                <div class="login-register-form">
+                                    <form action="#" method="post">
+                                        @*<input type="text" name="user-name" placeholder="Username" />*@
+                                        @Html.TextBoxFor(model => model.newMember.Account, new { @class = "form-control", @placeholder = "Username" })
+                                        @*<input type="password" name="user-password" placeholder="Password" />*@
+                                        @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = "Password" })
+
+                                        @Html.PasswordFor(model => model.PasswordCheck, new { @class = "form-control", placeholder = "PasswordCheck" })
+                                        @Html.TextBoxFor(model => model.newMember.Email, new { @class = "form-control", placeholder = "Email" })
+                                        <div class="button-box">
+                                           
+                                            <button type="submit"><span>Register</span></button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Regeister area end -->
